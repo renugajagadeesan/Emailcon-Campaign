@@ -394,13 +394,14 @@ const Mainpage = () => {
         }
       );
 
+       console.log("Email data:",emailData);
       // Handle successful response
       if (response.status === 200) {
         toast.success("Email sent successfully to recipient.");
         setIsLoading(false);
         setTimeout(() => {
           setModalOpen(false); // Close modal after success
-          navigate("/homepage");
+          // navigate("/home");
         }, 3000);
       } else {
         // Unexpected response from server
@@ -1408,7 +1409,7 @@ const Mainpage = () => {
                     {item.type === "link-image" && (
                       <div className="border">
                         <a
-                          href={item.href || "#"}
+                          href={item.link || "#"}
                           onClick={(e) => handleLinkClick(e, index)}
                         >
                           <img

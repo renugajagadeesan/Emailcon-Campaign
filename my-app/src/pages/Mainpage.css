@@ -576,6 +576,9 @@ button[data-tooltip]:hover::after {
     font-size: 14px;
     cursor: pointer;
     width: 150px;
+    outline: none;
+    background-color: rgb(230, 227, 227) !important;
+    color: black !important;
 }
 
 .select-icon {
@@ -588,10 +591,17 @@ button[data-tooltip]:hover::after {
     position: absolute;
     right: 16%;
 }
+.select-variable option{
+    background-color: #fdffff;
+    color: black;
+    padding: 10px 0px;
+    font-size: 16px;
+}
+
 
 .multiimg {
     width: 100% !important;
-    height: 235px !important;
+    height: 80% !important;
     margin: 0 auto;
     cursor: pointer !important;
 }

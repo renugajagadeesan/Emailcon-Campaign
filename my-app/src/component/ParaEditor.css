@@ -1,4 +1,4 @@
-.modal-overlay {
+.modal-overlay-para {
     position: fixed;
     top: 0;
     left: 0;
@@ -11,7 +11,7 @@
     z-index: 1000;
 }
 
-.modal-content {
+.modal-content-para {
     background: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -40,13 +40,14 @@
     margin-right: 10px;
     margin-bottom: 10px;
 }
-.select-variable{
-    width:200px;
+.select-variable-para{
+    width:180px;
     height:40px;
     background-color: #007c89;
     color:white;
+    outline: none;
 }
-.select-variable option{
+.select-variable-para option{
      background-color: #fdffff;
      color:black;
      padding:10px 0px;

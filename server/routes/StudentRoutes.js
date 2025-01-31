@@ -43,6 +43,7 @@ router.post('/upload', upload.single('image'), (req, res) => {
 //     await template.save();
 //     res.send('Saved');
 // });
+
 // Route to send a test email
 router.post('/sendtestmail', async (req, res) => {
   try {
@@ -84,14 +85,42 @@ router.post('/sendtestmail', async (req, res) => {
       if (item.type === 'para') {
         return `<div class="para" style="border-radius:10px;font-size:${item.style.fontSize};padding:10px; color:${item.style.color}; margin-top:20px; background-color:${item.style.backgroundColor}">${item.content}</div>`;
       } else if (item.type === 'head') {
-        return `<p style="font-size:${item.style.fontSize};border-radius:10px;padding:10px;font-weight:bold;color:${item.style.color};text-align:${item.style.textAlign};background-color:${item.style.backgroundColor}">${item.content}</p>`;
+        return `<p class="head" style="font-size:${item.style.fontSize};border-radius:10px;padding:10px;font-weight:bold;color:${item.style.color};text-align:${item.style.textAlign};background-color:${item.style.backgroundColor}">${item.content}</p>`;
       } else if (item.type === 'logo') {
-        return `<div style="width:${item.style.width};text-align:${item.style.textAlign};border-radius:10px;background-color:${item.style.backgroundColor};">
-                  <img src="${item.src}" style="width:30%;height:${item.style.height};pointer-events:none;"/>
+        return `<div style="width:${item.style.width};text-align:${item.style.textAlign};border-radius:10px;margin-top:10px;background-color:${item.style.backgroundColor};">
+                  <img src="${item.src}" style="width:30%;border-radius:10px;height:${item.style.height};pointer-events:none;"/>
                 </div>`;
       } else if (item.type === 'image') {
-        return `<img src="${item.src}" style="width:${item.style.width};pointer-events:none;height:${item.style.height};border-radius:10px;text-align:${item.style.textAlign};background-color:${item.style.backgroundColor}"/>`;
-      } else if (item.type === 'button') {
+        return `<img src="${item.src}" style="margin-top:10px;width:${item.style.width};pointer-events:none;height:${item.style.height};border-radius:10px;text-align:${item.style.textAlign};background-color:${item.style.backgroundColor}"/>`;
+      }
+      else if (item.type === 'multi-image') {
+      return `<table style="width:100%; border-collapse:collapse;">
+        <tr>
+            <td style="width:50%;text-align:center;padding:8px; vertical-align:top;">
+                <img src="${item.src1}" style="border-radius:10px;height:230px !important;width:100%;pointer-events:none !important; object-fit:cover;" alt="image"/>
+                    <a class = "img-btn"
+                    href = "${item.link1}"
+                    target = "_blank"
+                    style = "display:inline-block;padding:12px 25px;width:${item.buttonStyle.width || 'auto'};color:${item.buttonStyle.color || '#000'};text-decoration:none;background-color:${item.buttonStyle.backgroundColor || '#f0f0f0'};text-align:${item.buttonStyle.textAlign || 'left'};border-radius:${item.buttonStyle.borderRadius || '0px'};" >
+                        ${item.content1}
+                    </a>
+            </td>
+            <td style="width:50%;text-align:center;padding:8px; vertical-align:top;">
+                <img src="${item.src2}" style="border-radius:10px;height:230px !important;width:100%;pointer-events:none !important; object-fit:cover;" alt="image"/>
+                    <a class = "img-btn"
+                    href = "${item.link2}"
+                    target = "_blank"
+                    style = "display:inline-block;padding:12px 25px;width:${item.buttonStyle.width || 'auto'};color:${item.buttonStyle.color || '#000'};text-decoration:none;background-color:${item.buttonStyle.backgroundColor || '#f0f0f0'};text-align:${item.buttonStyle.textAlign || 'left'};border-radius:${item.buttonStyle.borderRadius || '0px'};" >
+                        ${item.content2}
+                    </a>
+            </td>
+        </tr>
+    </table>`
+  }
+
+       else if (item.type === 'link-image') {
+         return `<a href="${item.link || '#'}" taget="_blank" style="text-decoration:none;"><img src="${item.src}" style="margin-top:10px;width:${item.style.width};pointer-events:none;height:${item.style.height};border-radius:10px;text-align:${item.style.textAlign};background-color:${item.style.backgroundColor}"/></a>`;
+       } else if (item.type === 'button') {
         return `<div style="text-align:${item.style.textAlign || 'left'};padding-top:20px;">
                   <a href="${item.link || '#'}" target="_blank" style="display:inline-block;padding:12px 25px;width:${item.style.width || 'auto'};color:${item.style.color || '#000'};text-decoration:none;background-color:${item.style.backgroundColor || '#f0f0f0'};text-align:${item.style.textAlign || 'left'};border-radius:${item.style.borderRadius || '0px'};">
                     ${item.content || 'Button'}
@@ -113,6 +142,15 @@ router.post('/sendtestmail', async (req, res) => {
                 .main { width:330px !important; }
                 .para{
                   font-size:15px !important;
+                }
+                 .img-btn{
+                  width:85% !important;
+                  margin:0 auto !important;
+                  font-size:10px !important;
+                  padding:10px !important;
+                }
+                .head{
+                  font-size:20px !important;
                 }
               }
             </style>
@@ -191,22 +229,48 @@ router.post('/sendexcelEmail', async (req, res) => {
       const {
         type,
         content,
+        content1,
+        content2,
+        src1,
+        src2,
         src,
         style,
-        link
+        link,link2,link1,buttonStyle,
       } = element;
       const styleString = Object.entries(style || {}).map(([key, value]) => `${key.replace(/([A-Z])/g, '-$1').toLowerCase()}:${value}`).join(';');
+      const stylebuttonString = Object.entries(buttonStyle || {}).map(([key, value]) => `${key.replace(/([A-Z])/g, '-$1').toLowerCase()}:${value}`).join(';');
 
       switch (type) {
         case 'logo':
-          return `<div style="border-radius:10px;${styleString};">
-                    <img src="${src}" style="width:30%;" alt="image"/>
+          return `<div style="border-radius:10px;${styleString};margin-top:10px;">
+                    <img src="${src}" style="width:30%;border-radius:10px;" alt="image"/>
                   </div>`;
 
+        case 'link-image':
+          return `<a href = "${link}" target = "_blank" style="text-decoration:none;"><img src="${src}" style="${styleString};margin-top:10px;border-radius:10px;" alt="image"/></a>`;
+
+       case 'multi-image':
+       return `<table style="width:100%; border-collapse:collapse;">
+        <tr>
+            <td style="width:50%;text-align:center;padding:8px; vertical-align:top;">
+                <img src="${src1}" style="height:230px !important;width:100%;pointer-events:none !important; object-fit:cover; ${styleString}" alt="image"/>
+                    <a class="img-btn" href="${link1}" target="_blank" style="${stylebuttonString}; display: inline-block; padding: 12px 25px; text-decoration: none;">
+                        ${content1}
+                    </a>
+            </td>
+            <td style="width:50%;text-align:center;padding:8px; vertical-align:top;">
+                <img src="${src2}" style="height:230px !important;width:100%;pointer-events:none !important; object-fit:cover; ${styleString}" alt="image"/>
+                    <a class="img-btn" href="${link2}" target="_blank" style="${stylebuttonString}; display: inline-block; padding: 12px 25px; text-decoration: none;">
+                        ${content2}
+                    </a>
+            </td>
+        </tr>
+    </table>`;
+
         case 'image':
-          return `<img src="${src}" style="${styleString};border-radius:10px;" alt="image" />`;
+          return `<img src="${src}" style="${styleString};border-radius:10px;margin-top:10px;" alt="image" />`;
         case 'head':
-          return `<p style="${styleString};border-radius:10px;padding:10px;font-weight:bold;">${content}</p>`;
+          return `<p class="head" style="${styleString};border-radius:10px;padding:10px;font-weight:bold;">${content}</p>`;
         case 'para':
           return `<div class="para" style="${styleString};border-radius:10px;padding:10px;">${content}</div>`;
         case 'button':
@@ -238,6 +302,16 @@ router.post('/sendexcelEmail', async (req, res) => {
                 .para{
                   font-size:15px !important;
                 }
+                .img-btn{
+                  width:85% !important;
+                  margin:0 auto !important;
+                  font-size:10px !important;
+                  padding:10px !important;
+                }
+                .head{
+                  font-size:20px !important;
+                }
+               
               }
             </style>
           </head>
@@ -307,40 +381,69 @@ router.post('/sendbulkEmail', async (req, res) => {
     const bodyElements = JSON.parse(body);
 
     // Function to generate HTML from JSON structure
-    const generateHtml = (element) => {
-      const {
-        type,
-        content,
-        src,
-        style,
-        link
-      } = element;
-      const styleString = Object.entries(style || {}).map(([key, value]) => `${key.replace(/([A-Z])/g, '-$1').toLowerCase()}:${value}`).join(';');
+   const generateHtml = (element) => {
+     const {
+       type,
+       content,
+       content1,
+       content2,
+       src1,
+       src2,
+       src,
+       style,
+       link,
+       link2,
+       link1,
+       buttonStyle,
+     } = element;
+     const styleString = Object.entries(style || {}).map(([key, value]) => `${key.replace(/([A-Z])/g, '-$1').toLowerCase()}:${value}`).join(';');
+     const stylebuttonString = Object.entries(buttonStyle || {}).map(([key, value]) => `${key.replace(/([A-Z])/g, '-$1').toLowerCase()}:${value}`).join(';');
 
-      switch (type) {
-        case 'logo':
-          return `<div style="border-radius:10px;${styleString};">
-                    <img src="${src}" style="width:30%;" alt="image"/>
+     switch (type) {
+       case 'logo':
+         return `<div style="border-radius:10px;${styleString};margin-top:10px;">
+                    <img src="${src}" style="width:30%;border-radius:10px;" alt="image"/>
                   </div>`;
 
-        case 'image':
-          return `<img src="${src}" style="${styleString};border-radius:10px;" alt="image" />`;
-        case 'head':
-          return `<p style="${styleString};border-radius:10px;padding:10px;font-weight:bold;">${content}</p>`;
-        case 'para':
-          return `<div class="para" style="${styleString};border-radius:10px;padding:10px;">${content}</div>`;
-        case 'button':
-          return `<div style="margin:20px auto 0 auto;text-align:center;">
+       case 'link-image':
+         return `<a href = "${link}" target = "_blank" style="text-decoration:none;"><img src="${src}" style="${styleString};margin-top:10px;border-radius:10px;" alt="image"/></a>`;
+
+       case 'multi-image':
+         return `<table style="width:100%; border-collapse:collapse;">
+        <tr>
+            <td style="width:50%;text-align:center;padding:8px; vertical-align:top;">
+                <img src="${src1}" style="height:230px !important;width:100%;pointer-events:none !important; object-fit:cover; ${styleString}" alt="image"/>
+                    <a class="img-btn" href="${link1}" target="_blank" style="${stylebuttonString}; display: inline-block; padding: 12px 25px; text-decoration: none;">
+                        ${content1}
+                    </a>
+            </td>
+            <td style="width:50%;text-align:center;padding:8px; vertical-align:top;">
+                <img src="${src2}" style="height:230px !important;width:100%;pointer-events:none !important; object-fit:cover; ${styleString}" alt="image"/>
+                    <a class="img-btn" href="${link2}" target="_blank" style="${stylebuttonString}; display: inline-block; padding: 12px 25px; text-decoration: none;">
+                        ${content2}
+                    </a>
+            </td>
+        </tr>
+    </table>`;
+
+       case 'image':
+         return `<img src="${src}" style="${styleString};border-radius:10px;margin-top:10px;" alt="image" />`;
+       case 'head':
+         return `<p class="head" style="${styleString};border-radius:10px;padding:10px;font-weight:bold;">${content}</p>`;
+       case 'para':
+         return `<div class="para" style="${styleString};border-radius:10px;padding:10px;">${content}</div>`;
+       case 'button':
+         return `<div style="margin:20px auto 0 auto;text-align:center;">
                     <a href = "${link}"
                     target = "_blank"
                     style = "${styleString};display:inline-block;padding:12px 25px;text-decoration:none;" >
                       ${content}
                     </a>
                   </div>`;
-        default:
-          return '';
-      }
-    };
+       default:
+         return '';
+     }
+   };
 
     const dynamicHtml = bodyElements.map(generateHtml).join('');
 
@@ -357,6 +460,15 @@ router.post('/sendbulkEmail', async (req, res) => {
                 .main { width: 330px !important; }
                 .para{
                   font-size:15px !important;
+                }
+                  .img-btn{
+                  width:85% !important;
+                  margin:0 auto !important;
+                  font-size:10px !important;
+                  padding:10px !important;
+                }
+                .head{
+                  font-size:20px !important;
                 }
               }
             </style>

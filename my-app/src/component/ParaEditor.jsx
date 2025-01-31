@@ -18,8 +18,8 @@ const ParaEditor = ({ isOpen, content, onSave, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
+    <div className="modal-overlay-para">
+      <div className="modal-content-para">
         <Editor
           apiKey={apiKey}
           value={editorContent}
@@ -31,22 +31,12 @@ const ParaEditor = ({ isOpen, content, onSave, onClose }) => {
             menubar: true,
             branding: false,
             plugins: [
-              'advlist', 'lists', 'link', 'charmap', 'preview',
-              'searchreplace', 'wordcount', 'textcolor', 'colorpicker',
-              'code', 'fullscreen'
-            ],
+               'lists', 'link', 'textcolor', 'colorpicker'],
             toolbar: `
-              undo redo | formatselect | fontselect fontsizeselect | 
-              bold italic underline strikethrough | alignleft aligncenter alignright | 
+              undo redo | bold italic underline | fontselect fontsize | fontselect fontfamily | 
+              alignleft aligncenter alignright | 
               bullist numlist | forecolor backcolor
             `,
-            font_formats: `
-              Arial=arial,helvetica,sans-serif; 
-              Times New Roman=times new roman,times,serif; 
-              Courier New=courier new,courier,monospace; 
-              Verdana=verdana,geneva,sans-serif;
-            `,
-            fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
           }}
         />
 
@@ -58,7 +48,7 @@ const ParaEditor = ({ isOpen, content, onSave, onClose }) => {
               handleInsertVariable(e.target.value);
               e.target.value = ''; // Reset selection after insertion
             }}
-            className="select-variable"
+            className="select-variable-para"
           >
             <option value="" disabled selected>
               Add Variable

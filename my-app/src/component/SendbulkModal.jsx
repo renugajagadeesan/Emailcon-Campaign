@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./SendbulkModal.css";
 import apiConfig from "../apiconfig/apiConfig";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const SendbulkModal = ({ isOpen, onClose, previewContent = [],bgcolor}) => {
   const [groups, setGroups] = useState([]);
@@ -14,7 +14,7 @@ const SendbulkModal = ({ isOpen, onClose, previewContent = [],bgcolor}) => {
   const [previewtext, setPreviewtext] = useState("");
   const user = JSON.parse(localStorage.getItem("user"));
   const campaign = JSON.parse(localStorage.getItem("campaign"));
-  const navigate=useNavigate();
+  // const navigate=useNavigate();
 
 
 
@@ -110,7 +110,7 @@ let sentCount=0;
       setPreviewtext("");
       setIsProcessing(false);
       onClose();
-      navigate('/home')
+      // navigate('/home')
     }, 5000);
   } catch (error) {
     console.error("Error sending emails:", error);

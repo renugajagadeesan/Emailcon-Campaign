@@ -55,7 +55,6 @@
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: 95%;
 }
 
 .send-modal-submit-btn {
@@ -78,7 +77,4 @@
         width: 85%;
         margin: 0 auto;
     }
-}
-.campaign{
-    display: none;
 }

@@ -182,6 +182,21 @@ button[data-tooltip]:hover::after {
     margin-left: 10px;
     margin-top: 15px;
 }
+.navbar-button-send{
+    background-color: #f3f5f6;
+    color: #007c89;
+    text-align: center;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 15px;
+    border-radius: 25px;
+    align-items: center;
+    margin-left: 10px;
+    margin-top: 15px;
+    transition: 0.3s;
+    position: relative;
+}
 
 .navbar-button-Desktop {
     background-color: #ebeced;
@@ -312,15 +327,16 @@ button[data-tooltip]:hover::after {
 
 .testmail-content {
     background-color: white;
-    padding: 20px;
+    padding: 30px 20px 15px 20px !important;
     border-radius: 5px;
     width: 500px !important;
+    height: 250px !important;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     z-index: 100;
     overflow: hidden !important;
 }
 .testmail-content input{
-    width: 92% !important;
+    width: 96% !important;
 }
 .modal input,
 .modal textarea {
@@ -573,12 +589,104 @@ button[data-tooltip]:hover::after {
     right: 16%;
 }
 
-
-
-
 .multiimg {
     width: 100% !important;
     height: 235px !important;
     margin: 0 auto;
     cursor: pointer !important;
+}
+
+/* send mail css */
+
+/* Open Modal Button */
+.open-modal-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.open-modal-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Modal Overlay */
+.modal-overlay-send {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal Content */
+.modal-content-send {
+    background: white;
+    padding: 20px;
+    width: 320px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+/* Modal Header */
+.modal-content-send h2 {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+/* Button Group */
+.button-group-send {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Modal Buttons */
+.modal-btn-send {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 12px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.modal-btn-send:hover {
+    background: #f0f0f0;
+}
+
+/* Icons */
+.icon-send {
+    font-size: 20px;
+}
+
+/* Close Button */
+.close-btn-send {
+    margin-top: 15px;
+    background-color:#007c89;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.close-btn-send:hover {
+    background-color:#016a75;
 }

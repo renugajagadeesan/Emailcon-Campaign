@@ -157,6 +157,8 @@ if (!isOpen) return null;
         <div className="excel-modal-body">
           <h4>Sample excel format</h4>
           <img src={sampleexcel} alt="Sample Excel Format" className="sample-excel-image" />
+           <a href="../file/demoexcelfile.xlsx" download>
+             <button className="btn-download-sample">Download Sample File</button></a>
           <h4>Upload excel file</h4>
           <input type="file" accept=".xlsx, .xls" onChange={handleFileUpload} />
           {fileName && <p>Uploaded File: {fileName}</p>}

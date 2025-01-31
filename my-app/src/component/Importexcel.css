@@ -94,6 +94,19 @@
     border-radius: 4px;
     width: 95%;
 }
+.btn-download-sample {
+    padding: 10px 15px;
+    background-color: #007c89;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 15px auto;
+}
+
+.btn-download-sample:hover {
+    background-color: #025a64;
+}
 
 .excel-modal-content label {
     margin-bottom: 10px;

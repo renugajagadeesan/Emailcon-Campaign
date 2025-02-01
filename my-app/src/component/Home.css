@@ -3,7 +3,7 @@
     display: flex;
     height: 100vh;
     width: 100%;
-    background-color: #f4f4f4;
+    /* background-color: #f4f4f4; */
 }
 
 .sidebar {
@@ -37,14 +37,19 @@
     margin-bottom: 15px;
     text-align: center;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 10px;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .sidebar-button:hover {
-    background-color: #fff;
-    color: #007c89;
+    background-color:white;
+    color: #449099;
 
+}
+
+.sidebar-img {
+    width: 100%;
+    margin-top: 180px;
 }
 
 /* Main Content Styles */
@@ -56,13 +61,20 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: #f4f4f4;
+
 }
 
 .card-grid {
     display: flex;
-    gap: 20px;
+    gap: 60px;
     flex-wrap: wrap;
     justify-content: center;
+    width: 500px;
+    /* height:800px; */
+    padding: 80px;
+    background-color: #fff;
+    border-radius: 10px;
 }
 
 .card {
@@ -146,6 +158,7 @@
         font-size: 0.8rem;
     }
 }
+
 /* Modal Styles */
 .campaign-modal-overlay {
     position: fixed;
@@ -198,6 +211,7 @@
 .modal-create-button:hover {
     background-color: #025e68;
 }
+
 /* Add this CSS to center the toast content */
 .custom-toast .Toastify__toast {
     display: flex;
@@ -205,4 +219,80 @@
     /* Horizontally center */
     align-items: center;
     /* Vertically center */
+}
+
+.cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 180px;
+    height: 180px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #65bbc5, #007c89);
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    padding: 20px;
+    font-size: 18px;
+}
+
+.cards:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+.cards .icons {
+    font-size: 50px;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease;
+}
+
+.cards:hover .icons {
+    transform: rotateY(180deg);
+}
+
+.card-texts {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.logout-content {
+    background: #ffff;
+    border: 2px solid #fff;
+    outline: none;
+    color: #007c89;
+    font-size: 18px;
+    padding: 10px;
+    margin-top: 400px;
+    text-align: center;
+    cursor: pointer;
+    width:100%;
+    border-radius: 10px;
+    display: flex;
+    justify-content:center;
+      transition: all 0.3s ease-in-out;
+
+}
+.icon-log{
+    margin-left: 10px;
+    font-size: 20px;
+    transition: transform 0.3s ease-in-out;
+
+}
+.logout-content:hover .icon-log {
+    animation: moveIcon 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes moveIcon {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(5px);
+        /* Move icon slightly to the right */
+    }
 }
